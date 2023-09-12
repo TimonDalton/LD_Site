@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* fonts */
+  --button-text: "Roboto Mono";
+  --subheading-text: Inter;
+  --body-text: Roboto;
+
+  /* font sizes */
+  --button-text-size: 20px;
+  --font-size-base: 16px;
+  --subheading-text-size: 24px;
+  --body-text-size: 18px;
+  --heading-text-size: 40px;
+
+  /* Colors */
+  --color-blueviolet: #9747ff;
+  --color-black: #000;
+  --color-tomato: #f46234;
+  --color-gainsboro: #d9d9d9;
+  --color-white: #fff;
+  --color-cornflowerblue-100: #2584db;
+  --color-darkgray-100: #a7a7a7;
+  --color-darkgray-200: rgba(155, 155, 155, 0);
+  --color-deepskyblue: #12abcd;
+  --color-limegreen: #5fd826;
+  --color-gray: #fffdf8;
+  --color-silver: #c7c7c7;
+
+  /* Gaps */
+  --gap-9xs: 4px;
+  --gap-10xs: 3px;
+  --gap-33xl: 52px;
+  --gap-28xl: 47px;
+  --gap-8xl: 27px;
+  --gap-96xl: 115px;
+  --gap-4xl: 23px;
+  --gap-xs: 12px;
+  --gap-8xs: 5px;
+  --gap-7xs: 6px;
+  --gap-6xl: 25px;
+
+  /* Paddings */
+  --padding-3xs: 10px;
+  --padding-8xs: 5px;
+  --padding-284xl: 303px;
+  --padding-xs: 12px;
+  --padding-11xl: 30px;
+  --padding-smi: 13px;
+
+  /* border radiuses */
+  --br-8xs: 5px;
+  --br-13xl: 32px;
+  --br-9xs: 4px;
+  --br-7xs: 6px;
+}
