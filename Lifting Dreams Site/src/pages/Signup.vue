@@ -8,19 +8,19 @@ import DefaultButton from '../components/Button.vue';
 import router from "../main";
 import {postUserSignup} from '../logic/backendCom';
 
-let name = "";
-let email = "";
-let phoneNumber = "";
-let profession = "";
-let password = "";
-let passwordConfirm = "";
+let name = ref("");
+let email = ref("");
+let phoneNumber = ref("");
+let profession = ref("");
+let password = ref("");
+let passwordConfirm = ref("");
 
 async function onSignupButtonClick() {
-  if(password!= passwordConfirm){
+  if(password.value!= passwordConfirm.value){
     console.log(`passwords don't match`);
     return;
   }
-  const signupStatus = await postUserSignup(name,password);
+  const signupStatus = await postUserSignup(name.value,password.value);
   if(signupStatus == 200){
     router.push({ path: 'Dates' });
   }else{
@@ -49,7 +49,7 @@ async function onSignupButtonClick() {
               <b :class="$style.lableText1">Phone Number</b>
             </div> -->
             <LableText>Phone Number</LableText>
-            <TextField emit-name="pnInput" @pnInput="(t)=>email = t" initial-text=""/>
+            <TextField emit-name="pnInput" @pnInput="(t)=>phoneNumber = t" initial-text=""/>
           </div>
         </div>
         <div :class="$style.frameContainer">
@@ -58,21 +58,21 @@ async function onSignupButtonClick() {
               <b :class="$style.lableText1">Profession (Optional)</b>
             </div> -->
             <LableText>Profession (Optional)</LableText>
-            <TextField emit-name="profInput" @profInput="(t)=>email = t" initial-text=""/>
+            <TextField emit-name="profInput" @profInput="(t)=>profession = t" initial-text=""/>
           </div>
           <div :class="$style.lableText">
             <!-- <div :class="$style.lableText">
               <b :class="$style.lableText1">Password</b>
             </div> -->
             <LableText>Password</LableText>
-            <TextField emit-name="pwInput" @pwInput="(t)=>email = t" initial-text=""/>
+            <TextField emit-name="pwInput" @pwInput="(t)=>password = t" initial-text=""/>
           </div>
           <div :class="$style.lableTextParent3">
             <!-- <div :class="$style.lableText">
               <b :class="$style.lableText1">Confirm Password</b>
             </div> -->
             <LableText>Confirm Password</LableText>
-            <TextField emit-name="pwConfirmInput" @pwConfirmInput="(t)=>email = t" initial-text=""/>
+            <TextField emit-name="pwConfirmInput" @pwConfirmInput="(t)=>passwordConfirm = t" initial-text=""/>
           </div>
         </div>
       </div>

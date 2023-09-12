@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 import SignupDateSubmitted from "./pages/SignupDateSubmitted.vue";
 import EditDateSignup from "./pages/EditDateSignup.vue";
+import axios from "axios";
 import SignupDate from "./pages/SignupDate.vue";
 import Dates from "./pages/Dates.vue";
 import Signup from "./pages/Signup.vue";

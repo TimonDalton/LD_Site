@@ -1,18 +1,19 @@
 // const { doQuery, tableNames } = require("../../../configs/config");
-import bodyParser from 'body-parser';
-const jsonParser = bodyParser.json();
+
 // const { log } = require('../../../configs/logging');
 // const  = require('../logic/routeValidation');
+import bodyParser from 'body-parser';
+const jsonParser = bodyParser.json();
 import { validateUserSignup, validateUserLogin, checkIfUserLoggedIn, getUserId } from '../logic/routeValidation.ts';
 import { insertUserToDb, checkLoginDetails, getLocations, getLocationDates, getSignupDetails } from '../database/backendTemp';
 
 export function applyRoutes(app) {
-    app.use('/', async function (req, res, next) {
+    app.use('/',jsonParser, async function (req, res, next) {
         console.log(`request to : ${req.path}`);
 
         next();
     });
-    app.post('/api/signupUser', async function (req, res, next) {
+    app.post('/api/signupUser',jsonParser, async function (req, res, next) {
         console.log("In /api/signupUser");
         // console.log(req);
         let data = req.body;
@@ -26,18 +27,18 @@ export function applyRoutes(app) {
         }
         let valid = validateUserSignup(name, password);
         if (!valid) {
-            res.status(400).send({ message: 'Username or password in invalid format' });
+            res.status(401).send({ message: 'Username or password in invalid format' });
         } else {
             try {
-                insertUserToDb(name, password);
-                res.send({ message: 'User Successfully Signed Up' });
+                await insertUserToDb(name, password);
+                res.status(200).send({ message: 'User Successfully Signed Up' });
             } catch (e) {
-                res.status(400).send({ message: 'Error Inserting User' });
+                res.status(402).send({ message: 'Error Inserting User' });
             }
         }
     });
 
-    app.post('/api/loginUser', async function (req, res, next) {
+    app.post('/api/loginUser',jsonParser, async function (req, res, next) {
         console.log("In /api/signupUser");
         let data = req.body;
 
@@ -48,7 +49,7 @@ export function applyRoutes(app) {
             res.status(400).send({ message: 'Username or password in invalid format' });
         } else {
             try {
-                const validUser = checkLoginDetails(name, password);
+                const validUser = await checkLoginDetails(name, password);
                 if (validUser) {
                     res.send({ message: 'User Successfully Logged In' });
                 } else {
@@ -59,7 +60,7 @@ export function applyRoutes(app) {
             }
         }
     });
-    app.get('/api/getLocations', async function (req, res, next) {
+    app.get('/api/getLocations',jsonParser, async function (req, res, next) {
         const userLoggedIn = checkIfUserLoggedIn(req);
         if (!userLoggedIn) {
             res.status(400).send({ message: 'User not logged in' });
@@ -72,7 +73,7 @@ export function applyRoutes(app) {
             }
         }
     });
-    app.get('/api/getLocationDates', async function (req, res, next) {
+    app.get('/api/getLocationDates',jsonParser, async function (req, res, next) {
         const userLoggedIn = checkIfUserLoggedIn(req);
         if (!userLoggedIn) {
             res.status(400).send({ message: 'User not logged in' });
@@ -87,7 +88,7 @@ export function applyRoutes(app) {
         }
     });
 
-    app.get('/api/getVolunteeringDateUserSingup', async function (req, res, next) {
+    app.get('/api/getVolunteeringDateUserSingup',jsonParser, async function (req, res, next) {
         const userLoggedIn = checkIfUserLoggedIn(req);
         let data = req.body;
 

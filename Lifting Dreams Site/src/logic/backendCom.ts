@@ -5,7 +5,11 @@ const baseUrl = 'http://localhost:3000';
 export async function postUserSignup(username: string, password: string): Promise<Number> {
     try {
         console.log(`Did: postUserSignup`);
-        const res = await axios.post(`${baseUrl}/api/signupUser`, { name: username, password: password });
+        const res = await axios.post(`${baseUrl}/api/signupUser`, { name: username, password: password }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
         if (res.data['message'] != undefined) {
             console.log(`message: ${res.data['message']}`);
         };

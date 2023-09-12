@@ -5,11 +5,11 @@
   "main": "main.ts",
   "scripts": {
     "test": "test",
-    "build":"tsc"
+    "build": "tsc"
   },
   "author": "",
   "type": "module",
-  "allowImportingTsExtensions":true,
+  "allowImportingTsExtensions": true,
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",

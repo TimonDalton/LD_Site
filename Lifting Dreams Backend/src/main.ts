@@ -4,7 +4,6 @@ import session from 'express-session';
 import cors from 'cors';
 const port = 3000
 import {applyRoutes} from './routes/routes.ts';
-
 const app = express()
 async function main() {
 
