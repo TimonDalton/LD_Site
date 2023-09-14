@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineComponent, ref} from "vue";
+import { defineComponent, ref } from "vue";
 
 import router from "../main";
 
@@ -7,17 +7,18 @@ const props = defineProps({
   state: { default: 'available' },
   date: String,
   location: String,
+  locationEventId: { type: Number, default: 0, }//Should be required outside demo
 });
 
-function onClick(){
+function onClick() {
   let pageProps = '';
-  router.push({path:`/signup-date/${props.location??''}/${props.date??''}`,});
+  router.push({ path: `/signup-date/${props.location ?? ''}/${props.date ?? ''}/${props.locationEventId}`, });
 }
 
 </script>
 
 <template>
-  <div :class="$style.availableDateIndicator" >
+  <div :class="$style.availableDateIndicator">
     <div :class="$style.stateavailable" v-if="state == 'available'" @click="onClick">
       <div :class="$style.ddMonth">{{ date }}</div>
     </div>
@@ -88,4 +89,5 @@ function onClick(){
   font-size: var(--body-text-size);
   color: var(--color-black);
   font-family: var(--body-text);
-}</style>
+}
+</style>

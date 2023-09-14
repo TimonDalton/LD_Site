@@ -39,23 +39,27 @@ export function applyRoutes(app) {
     });
 
     app.post('/api/loginUser',jsonParser, async function (req, res, next) {
-        console.log("In /api/signupUser");
+        console.log("In /api/loginUser");
         let data = req.body;
 
         let name = data['name'];
         let password = data['password'];
         let valid = validateUserLogin(name, password);
         if (!valid) {
+            console.log('400');
             res.status(400).send({ message: 'Username or password in invalid format' });
         } else {
             try {
                 const validUser = await checkLoginDetails(name, password);
                 if (validUser) {
+                    console.log('200');
                     res.send({ message: 'User Successfully Logged In' });
                 } else {
+                    console.log('400');
                     res.status(400).send({ message: 'No Such User and Password in System' });
                 }
             } catch (e) {
+                console.log('400');
                 res.status(400).send({ message: 'Error Inserting User' });
             }
         }
@@ -80,8 +84,10 @@ export function applyRoutes(app) {
         } else {
             const locationId = req.body['location_id'];
             try {
-                const locationsData = getLocationDates(locationId);
-                res.send({ locations: locationsData });
+                const locationsDates = await getLocationDates(locationId);
+                console.log('sending: ');
+                console.log(locationsDates);
+                res.send({ locationDates: locationsDates });
             } catch (e) {
                 res.status(400).send({ message: 'Error getting locations User' });
             }

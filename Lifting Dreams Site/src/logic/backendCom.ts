@@ -1,4 +1,3 @@
-import { users, locationSignups, locations, signupInformation } from './dummyData';
 import axios from 'axios';
 
 const baseUrl = 'http://localhost:3000';
@@ -41,7 +40,7 @@ export async function checkLoginDetails(username: string, password: string): Pro
 export async function getLocations(): Promise<any> {
     try {
         console.log(`Did: getLocations`);
-        const res = await axios.post(`${baseUrl}/api/getLocations`);
+        const res = await axios.get(`${baseUrl}/api/getLocations`);
         if (res.data['message'] != undefined) {
             console.log(`message: ${res.data['message']}`);
         };
@@ -60,12 +59,17 @@ export async function getLocationNameById(locationId) {
 export async function getLocationDates(locationId: Number): Promise<any> {
     try {
         console.log(`Did: getLocationDates`);
-        const res = await axios.post(`${baseUrl}/api/getLocations`, { location: location });
+        const res = await axios.get(`${baseUrl}/api/getLocationDates`, { params: { location_id: locationId } });
+        if(res.data==undefined){
+            console.log('undefined res data');
+            return {};
+        }
         if (res.data['message'] != undefined) {
             console.log(`message: ${res.data['message']}`);
-        };
-        console.log(`res code: ${res.status}`);
-        return res.data;
+        }
+        console.log('getLocationDates Res Data:');
+        console.log(res.data);
+        return res.data['locationDates'];
     } catch (e) {
         console.log('error:');
         console.log(e);
@@ -76,7 +80,7 @@ export async function getLocationDates(locationId: Number): Promise<any> {
 export async function getSignupDetails(dateId: Number): Promise<any> {
     try {
         console.log(`Did: getSignupDetails`);
-        const res = await axios.post(`${baseUrl}/api/getVolunteeringDateUserSingup`, { signup_date_id: dateId });
+        const res = await axios.get(`${baseUrl}/api/getVolunteeringDateUserSingup`, { signup_date_id: dateId });
         if (res.data['message'] != undefined) {
             console.log(`message: ${res.data['message']}`);
         };

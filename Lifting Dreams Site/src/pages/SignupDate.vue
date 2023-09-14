@@ -8,7 +8,7 @@ import DefaultButton from "../components/Button.vue";
 import ButtonText from "../components/ButtonText.vue";
 import CancelButton from "../components/CancelButton.vue";
 import CheckBox from "../components/CheckBox.vue";
-import DatelocationDisplayBox from "../components/DatePlaceDisplayBox.vue";
+import DatePlaceDisplayBox from "../components/DatePlaceDisplayBox.vue";
 import DeleteButton from "../components/DeleteButton.vue";
 import Dropdown from "../components/Dropdown.vue";
 import HeadingText from "../components/HeadingText.vue";
@@ -61,10 +61,10 @@ function cancelSignupClick() {
   router.push({ name: 'Dates', params: { location: location } });
 }
 function submitClick() {
-  router.push({ name: 'SignupDateSubmitted', params: { location_id: locationId, date_id: dateId }, });
+  router.push({ name: 'SignupDateSubmitted', params: { date_id: dateId }, });
 }
 
-getSignupDetails(locationId).then(
+getSignupDetails(dateId).then(
   sInfo => {
     if (sInfo.transport.status == 'lift-required') {
       transportRadio.value = 0;
@@ -117,7 +117,7 @@ getSignupDetails(locationId).then(
     <main :class="$style.pageFrame">
       <img :class="$style.liftingdreamsLogoOnlyIcon" alt="" src="/liftingdreams-logo-only-4.svg" />
       <SubheadingText :class="$style.nameText">Jeff Ooshuizen</SubheadingText>
-      <DatelocationDisplayBox :class="$style.datelocationDisplayBox" :date-text="date" :location-text="location" />
+      <DatePlaceDisplayBox :class="$style.datelocationDisplayBox" :date-text="date" :location-text="location" />
       <!-- <div :class="$style.datelocationDisplayBox">
         <div :class="$style.datelocationDisplayBoxChild" />
         <div :class="$style.arealocation">Memelodi- Love Christian</div>

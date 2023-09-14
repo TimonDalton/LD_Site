@@ -1,4 +1,4 @@
-import {users,locationSignups,locations,signupInformation} from './dummyData';
+import {users,locationEvents,locations,signupInformation} from './dummyData';
 
 function resolveAfter2Seconds() {
     return new Promise((resolve) => {
@@ -17,8 +17,10 @@ export async function asyncCall() {
 
 export async function insertUserToDb(username: string, password: string) {
     await asyncCall();
+    const lastId = users.length>0?users[users.length-1]['id']:0;
     users.push(
-        {
+        {   
+            id: lastId+1,
             name: username,
             password: password,
         }
@@ -47,15 +49,15 @@ export async function checkLoginDetails(username: string, password: string) {
 export async function getLocations(location: string) {
     await asyncCall();
     return new Promise((resolve) => {
-        console.log(locationSignups);
-       resolve(locationSignups);
+        console.log(locations);
+       resolve(locations);
     });
 }
 export async function getLocationDates(location: string) {
     await asyncCall();
     return new Promise((resolve) => {
-        console.log(locationSignups);
-       resolve(locationSignups);
+        console.log(locationEvents);
+       resolve(locationEvents);
     });
 }
 

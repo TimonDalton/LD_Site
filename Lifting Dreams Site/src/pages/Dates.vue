@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup async>
 import { defineComponent, ref } from "vue";
 import AvailableDateIndicator from "../components/AvailableDateIndicator.vue";
 import BodyText from "../components/BodyText.vue";
@@ -20,15 +20,18 @@ import VolunteerCounterGroup from "../components/VolunteerCounterGroup.vue";
 import AvailableDateAndVolunteersGroup from "../components/AvailableDateAndVolunteersGroup.vue";
 
 import LocationDates from "../components/LocationDates.vue";
+import  {getLocations} from '../logic/backendCom';
 
 import router from "../main";
 
 console.log('router params: ');
 console.log(router.currentRoute.value.params);
-let location = 'Choose location';
+let locationName = 'Choose location';
 if (router.currentRoute.value.params['location']) {
-  location = router.currentRoute.value.params['location'].concat();
+  locationName = router.currentRoute.value.params['location'].concat();
 }
+const locations = [{id:0,name:'mamelodi'}];//await getLocations(); 
+let currentLocation = locations.length>0?ref(locations[0]):ref({id:0});
 </script>
 
 <template>
@@ -36,7 +39,7 @@ if (router.currentRoute.value.params['location']) {
     <main :class="$style.lineParent">
       <img :class="$style.liftingdreamsLogoOnlyIcon" alt="" src="/liftingdreams-logo-only-4.svg" />
       <div :class="$style.dropdown">
-        <Dropdown :text="location" />
+        <Dropdown :text="locationName" />
       </div>
       <div :class="$style.subheadingText">
         <SubheadingText>The more the merrier!</SubheadingText>
@@ -47,7 +50,7 @@ if (router.currentRoute.value.params['location']) {
       <div :class="$style.datesIndicatorParent">
         <Suspense>
           <template #default>
-            <LocationDates :location-id="0"/>
+            <LocationDates :location-id="currentLocation['id']"/>
           </template>
           <template #fallback>
             Location Dates Fallback

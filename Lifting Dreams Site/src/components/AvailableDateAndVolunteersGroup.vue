@@ -9,6 +9,7 @@ const props = defineProps({
     minCount: {type:Number,default:2},
     date: {type:String,default:'dd/mm'},
     location: {type:String,default:'Mamelodi'},
+    locationEventId:{type:Number,default:0,}//should be required if not for demo purposes
 });
 </script>
 <template>
@@ -16,7 +17,7 @@ const props = defineProps({
         <VolunteerCounterGroup :available="available" :count="count" :min-count="minCount"
         />
         <div :class="$style.spacer"></div>
-        <AvailableDateIndicator :state="state" :date="date" :location="location" :class="$style.volunteerIndicatorGroup"/>
+        <AvailableDateIndicator :state="state" :date="date" :location="location" :class="$style.volunteerIndicatorGroup" :location-event-id="locationEventId"/>
     </div>
 </template>
 <style module>

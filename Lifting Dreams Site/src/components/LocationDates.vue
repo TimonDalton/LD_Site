@@ -7,8 +7,10 @@ import { getLocationDates,getLocationNameById } from '../logic/backendCom';
 const props = defineProps({
     locationId: { type: Number,default:0 }
 });
-let location = await getLocationNameById(locationId);
-let locationDates = await getLocationDates(locationId);
+let location = await getLocationNameById(props.locationId);
+let locationDates = await getLocationDates(props.locationId);
+console.log('Location Dates');
+console.log(locationDates);
 
 </script>
 
@@ -18,7 +20,7 @@ let locationDates = await getLocationDates(locationId);
         <BodyText :class="$style.dateStartLable">27/07/2023</BodyText>
         <div :class="$style.availableDateIndicatorParent">
             <AvailableDateAndVolunteersGroup v-for="date in locationDates" :date="date.date" :location="location"
-                :available="date.state != 'unavailable'" :state="date.state" :count="date.count" :min-count="1" />
+                :available="date.state != 'unavailable'" :state="date.state" :count="date.count" :min-count="1" :location-event-id="date.locationEventId"/>
             <!-- <AvailableDateAndVolunteersGroup :date="'9 August'" :location="location" :available="true" :state="'confirmed'"
                 :count="1" :min-count="1" />
             <AvailableDateAndVolunteersGroup :date="'16 August'" :location="location" :available="true" :state="'available'"
